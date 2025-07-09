@@ -3,7 +3,6 @@
 import { execSync } from 'child_process';
 import { existsSync } from 'fs';
 import { config } from 'dotenv';
-import { BASE_API_URL } from '../src/utils/env.config';
 
 // Load environment variables from .env file
 config();
@@ -14,7 +13,7 @@ const typesExist = existsSync('src/client/types.gen.ts') &&
                   existsSync('src/client/schemas.gen.ts');
 
 // Get the API URL from environment variables (now properly loaded from .env)
-const API_URL = process.env.VITE_API_URL || process.env.API_URL || BASE_API_URL;
+const API_URL = process.env.VITE_API_URL || process.env.API_URL
 
 if (!API_URL) {
   if (typesExist) {
