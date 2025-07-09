@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
+import { BASE_API_URL } from '../utils/env.config';
 
-const SOCKET_URL = import.meta.env["VITE_API_URL"] || 'http://localhost:3000';
 
 export const useSocket = (room: string): { socket: Socket | null, isConnected: boolean } => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const newSocket = io(SOCKET_URL, {
+    const newSocket = io(BASE_API_URL, {
       transports: ['websocket'],
     });
 

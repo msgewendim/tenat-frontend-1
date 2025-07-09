@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "..//utils/env.config";
 import axios, { type AxiosRequestConfig } from "axios";
 
 export function sleep(ms: number): Promise<void> {
@@ -5,7 +6,7 @@ export function sleep(ms: number): Promise<void> {
 }
 // Create a custom axios instance
 const api = axios.create({
-  baseURL: import.meta.env['VITE_API_URL'],
+  baseURL: BASE_API_URL,
   timeout: 10000,
 });
 
