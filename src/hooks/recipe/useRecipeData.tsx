@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { useGetProductsFromRecipe } from './useGetProductsFromRecipe';
-import { MinimalCartItem, Recipe } from '../../client/types.gen';
+import { MinimalCartItemDto, Recipe } from '../../client/types.gen';
 import useGenericData from '../app/useGenericData';
 import { useCartStore } from '../../stores/useCartStore';
 
@@ -23,10 +23,10 @@ export default function useRecipePage() {
       return;
     }
 
-    const newCartItems: MinimalCartItem[] = [];
+    const newCartItems: MinimalCartItemDto[] = [];
 
     productsFromRecipe.forEach((product) => {
-      const newItem: MinimalCartItem = {
+      const newItem: MinimalCartItemDto = {
         itemId: product._id,
         quantity: 1,
         size: product?.pricing[0]?.size?.sizeName || '',

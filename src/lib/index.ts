@@ -1,15 +1,15 @@
 import { postUtil } from "./api";
 import {
-  PaymentFormSuccessResponse,
-  CheckoutPayload,
+  OrdersControllerGenerateSaleResponses,
+  CheckoutPayloadDto,
 } from "../client/types.gen";
 import { DesignProductFormData } from "../components/layout/modals/DesignProduct";
 import { EarlyAdoptersFormData } from "../components/layout/modals/EarlyAdapters";
 
 // Send the minimal checkout data to your payment gateway API
 const getPaymentForm = async (
-  checkoutData: CheckoutPayload
-): Promise<PaymentFormSuccessResponse> => {
+  checkoutData: CheckoutPayloadDto
+): Promise<OrdersControllerGenerateSaleResponses> => {
   // Send minimal cart items (IDs only) - backend will fetch full item details
   return (
     await postUtil(`/orders/generate-sale`, {

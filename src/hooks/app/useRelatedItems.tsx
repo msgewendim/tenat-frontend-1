@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-import { RandomItem } from "../../client/types.gen";
 import useGenericData from "./useGenericData";
-
+import { RandomItem } from "../../types"
 function useRelatedItems(endpoint: string, itemCategory: string, exclude: string) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 4;

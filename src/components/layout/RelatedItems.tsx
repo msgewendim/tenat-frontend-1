@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { RandomItem } from "../../client/types.gen";
+import { RandomItem } from "../../types";
 import useRelatedItems from "../../hooks/app/useRelatedItems";
 import { RelatedItemCardProps, RelatedItemsProps } from "../../providers/interface/general.props";
 import CarouselButton from "../ui/CarouselButton";

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { Product, ProductSize, MinimalCartItem } from '../../client/types.gen'
+import { Product, ProductSize, MinimalCartItemDto } from '../../client/types.gen'
 import { ItemProperties, ProductModalProps } from '../../providers/interface/products.props'
 import { useCartStore } from '../../stores/useCartStore'
 
@@ -49,7 +49,7 @@ function useAddToCartModal({ product, setOpen }: ProductModalProps) {
   }, [sizes, prices, setSizeIdx]);
 
   const handleAddProductToCart = useCallback((product: Product) => {
-    const minimalItem: MinimalCartItem = {
+    const minimalItem: MinimalCartItemDto = {
       itemId: product._id,
       quantity: itemProperties.quantity,
       size: itemProperties.size,

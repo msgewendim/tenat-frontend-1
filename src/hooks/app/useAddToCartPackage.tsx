@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { Package, MinimalCartItem } from '../../client/types.gen'
+import { Package, MinimalCartItemDto } from '../../client/types.gen'
 import { useCartStore } from '../../stores/useCartStore'
 
 interface UseAddToCartPackageProps {
@@ -19,7 +19,7 @@ function useAddToCartPackage({ package: pkg, setOpen }: UseAddToCartPackageProps
   }, [])
 
   const handleAddPackageToCart = useCallback(() => {
-    const minimalItem: MinimalCartItem = {
+    const minimalItem: MinimalCartItemDto = {
       itemId: pkg._id,
       quantity,
       size: 'default', // Packages typically have a default size

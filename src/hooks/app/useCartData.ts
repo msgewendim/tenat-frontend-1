@@ -1,17 +1,17 @@
 import { useQueries } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { MinimalCartItem, Product, Package } from '../../client/types.gen';
+import { MinimalCartItemDto, Product, Package } from '../../client/types.gen';
 import { getItemById } from '../../lib/GenericService';
 
 /**
  * Hook to fetch full cart item data from minimal cart items
  * Fetches product/package data by ID for display purposes
  */
-export function useCartItemsData(minimalItems: MinimalCartItem[]) {
+export function useCartItemsData(minimalItems: MinimalCartItemDto[]) {
   // Memoize queries to prevent unnecessary re-fetches
   const { queries, itemQueryMap } = useMemo(() => {
     // Create a map to avoid duplicate queries for same item
-    const uniqueItems = new Map<string, MinimalCartItem>();
+    const uniqueItems = new Map<string, MinimalCartItemDto>();
     const itemQueryMap = new Map<string, number>(); // Maps itemType-itemId to query index
     
     minimalItems.forEach(item => {
@@ -90,7 +90,7 @@ export function useCartItemsData(minimalItems: MinimalCartItem[]) {
 /**
  * Hook to get total price from minimal cart items
  */
-export function useCartTotals(minimalItems: MinimalCartItem[]) {
+export function useCartTotals(minimalItems: MinimalCartItemDto[]) {
   const totalPrice = minimalItems.reduce((total, item) => 
     total + (item.price * item.quantity), 0
   );

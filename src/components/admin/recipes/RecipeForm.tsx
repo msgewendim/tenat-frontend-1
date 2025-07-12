@@ -18,7 +18,7 @@ import { AddCategoryInput } from '../products/AddArrayInputFields';
 
 const RecipeForm = ({ item: recipe, onSubmit: onSubmitProp, message, mutateFormState }: FormProps<Recipe>) => {
   const { t } = useTranslation();
-  const { existingMainCategories, register, control, handleSubmit, errors, setValue, reset, watch, recipeDifficulty } = useRecipesForm(recipe);
+  const { existingMainCategories, register, control, handleSubmit, errors, setValue, reset, recipeDifficulty } = useRecipesForm(recipe);
   const { setAdminActiveSection, adminActiveSection } = useAppContext();
   const { isSuccess, isError, isLoading, error } = mutateFormState || { isError: false, isLoading: false, isSuccess: false, error: null };
   const isEditing = !!recipe && adminActiveSection.includes('edit');

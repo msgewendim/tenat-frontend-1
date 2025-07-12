@@ -15,7 +15,7 @@ import { PackageSchema } from '../../../validation/add-package.validation';
 
 const PackageForm = ({ item: pkg, onSubmit: onSubmitProp, message, mutateFormState }: FormProps<Package>) => {
   const { t } = useTranslation();
-  const { register, control, formState: { errors }, reset, handleSubmit, setValue, watch } = useForm<Package>({
+  const { register, control, formState: { errors }, reset, handleSubmit } = useForm<Package>({
     defaultValues: pkg || {
       name: '',
       image: '',
@@ -24,12 +24,14 @@ const PackageForm = ({ item: pkg, onSubmit: onSubmitProp, message, mutateFormSta
       ingredientsQuantity: 0,
       peoplesQuantity: 0
     },
+    mode: "onSubmit",
     resolver: zodResolver(PackageSchema)
   })
   const { setAdminActiveSection } = useAppContext();
   const { isSuccess, isError, isLoading, error } = mutateFormState || { isError: false, isLoading: false, isSuccess: false, error: null };
   
   const onSubmit: SubmitHandler<Package> = (data) => {
+
     onSubmitProp(data);
     
     if (isLoading) {
@@ -88,9 +90,10 @@ const PackageForm = ({ item: pkg, onSubmit: onSubmitProp, message, mutateFormSta
             type="number"
             label={t('form.packageForm.priceLabel')}
             error={errors.price?.message}
+            registerOptions={{ valueAsNumber: true }}
           />
           {
-            errors.cookingTime && <span className="text-red-500">{errors.cookingTime.message}</span>
+            errors.cookingTime && <span className="text-green-500">{errors.cookingTime.message}</span>
           }
           <FormInput<Package>
             name="cookingTime"
@@ -99,6 +102,7 @@ const PackageForm = ({ item: pkg, onSubmit: onSubmitProp, message, mutateFormSta
             type="number"
             label={t('form.packageForm.cookingTimeLabel')}
             error={errors.cookingTime?.message}
+            registerOptions={{ valueAsNumber: true }}
           />
           {errors.cookingTime && <span className="text-red-500">{errors.cookingTime.message}</span>}
         </div>
@@ -110,6 +114,7 @@ const PackageForm = ({ item: pkg, onSubmit: onSubmitProp, message, mutateFormSta
             type="number"
             label={t('form.packageForm.ingredientsQuantityLabel')}
             error={errors.ingredientsQuantity?.message}
+            registerOptions={{ valueAsNumber: true }}
           />
           {errors.ingredientsQuantity && <span className="text-red-500">{errors.ingredientsQuantity.message}</span>}
 
@@ -120,6 +125,7 @@ const PackageForm = ({ item: pkg, onSubmit: onSubmitProp, message, mutateFormSta
             type="number"
             label={t('form.packageForm.peoplesQuantityLabel')}
             error={errors.peoplesQuantity?.message}
+            registerOptions={{ valueAsNumber: true }}
           />
           {errors.peoplesQuantity && <span className="text-red-500">{errors.peoplesQuantity.message}</span>}
         </div>
@@ -127,7 +133,7 @@ const PackageForm = ({ item: pkg, onSubmit: onSubmitProp, message, mutateFormSta
         <div className="w-full mt-6 flex justify-center">
           <button
             type="submit"
-            className="bg-green-500 text-white px-8 py-4 rounded-lg w-full sm:w-52"
+            className="bg-red-500 text-white px-8 py-4 rounded-lg w-full sm:w-52"
           >
             {isEditing ? t('form.packageForm.updateButton') : t('form.packageForm.saveButton')}
           </button>

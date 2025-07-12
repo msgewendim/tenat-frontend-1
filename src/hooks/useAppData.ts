@@ -1,9 +1,9 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 
 import {
-  MinimalCartItem,
-  PaymentFormSuccessResponse,
-  CheckoutPayload,
+  MinimalCartItemDto,
+  OrdersControllerGenerateSaleResponses,
+  CheckoutPayloadDto,
 } from "../client/types.gen";
 import { getItemsByNames, getPaymentForm } from "../lib";
 import {
@@ -44,7 +44,7 @@ function useGetRandomItems<T>(endpoint: string, query: query) {
 
 // Enhanced caching for cart items by names
 function useGetCartItems(names: string[]) {
-  return useQuery<MinimalCartItem[], Error>({
+  return useQuery<MinimalCartItemDto[], Error>({
     queryKey: ["cart", "items", names.sort()],
     queryFn: () => getItemsByNames(names),
     enabled: names.length > 0,
@@ -59,7 +59,7 @@ function useGetCartItems(names: string[]) {
 
 // Enhanced caching for payment forms - now accepts CheckoutPayload
 function useGetPaymentForm() {
-  return useMutation<PaymentFormSuccessResponse, Error, CheckoutPayload>({
+  return useMutation<OrdersControllerGenerateSaleResponses, Error, CheckoutPayloadDto>({
     mutationFn: (payload) => getPaymentForm(payload),
     
     // Payment operations don't need caching but should retry once

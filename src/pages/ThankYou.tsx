@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, Link } from "react-router-dom";
 
-import { MinimalCartItem } from "../client/types.gen";
+import { MinimalCartItemDto } from "../client/types.gen";
 import Loader from "../components/ui/Loader";
 import { useCartStore } from "../stores/useCartStore";
 import { getUtil } from "../lib/api";
@@ -87,7 +87,7 @@ const ThankYou = () => {
 	const { clearCart } = useCartStore();
 	
 	// Get cart items from persistent storage (saved before payment)
-	const [orderItems] = useState<MinimalCartItem[]>(() => {
+	const [orderItems] = useState<MinimalCartItemDto[]>(() => {
 		const savedItems = sessionStorage.getItem("cartItems");
 		return savedItems ? JSON.parse(savedItems) : [];
 	});

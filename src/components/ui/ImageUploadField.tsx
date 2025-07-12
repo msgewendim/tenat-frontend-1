@@ -50,8 +50,6 @@ export function ImageUploadField({
     uploadFiles,
     removeFile,
     clearAll,
-    hasFiles,
-    hasSuccessfulUploads
   } = imageUpload
 
   // Initialize with existing value

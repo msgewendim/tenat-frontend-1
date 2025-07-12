@@ -11,10 +11,17 @@ export const FormInput = <T extends FieldValues>({
   registerOptions,
   label,
   placeholder,
-  error
+  error,
+  valueAsNumber = false
 }: FormInputProps<T>) => {
   const inputId = `input-${name}`;
 
+  const inputProps = valueAsNumber ? {
+    type: "number",
+    valueAsNumber: true
+  } : {
+    type: type
+  }
   return (
     <div className="relative">
       {label && <label
@@ -25,7 +32,7 @@ export const FormInput = <T extends FieldValues>({
       </label>}
       <input
         id={inputId}
-        type={type}
+        {...inputProps}
         {...register(name, registerOptions)}
         className={`
           px-4 py-3 bg-gray-100 text-gray-800 w-full text-sm rounded-md

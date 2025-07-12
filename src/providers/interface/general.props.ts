@@ -111,6 +111,7 @@ type FormInputProps<T extends FieldValues> = {
   registerOptions?: RegisterOptions<T>;
   className?: string; // Optional class names for input field
   required?: boolean; // Optional required field flag
+  valueAsNumber?: boolean;
 };
 interface SelectProps {
   items: Array<ProductSize | Category>;

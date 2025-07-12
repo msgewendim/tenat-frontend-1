@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { MinimalCartItem } from '../client/types.gen';
+import { MinimalCartItemDto } from '../client/types.gen';
 
 interface CartState {
-  items: MinimalCartItem[];
-  addToCart: (item: MinimalCartItem) => void;
+  items: MinimalCartItemDto[];
+  addToCart: (item: MinimalCartItemDto) => void;
   removeFromCart: (itemId: string, size: string) => void;
   updateQuantity: (itemId: string, size: string, quantity: number) => void;
   clearCart: () => void;

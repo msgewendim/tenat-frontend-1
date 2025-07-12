@@ -29,12 +29,6 @@ interface FileState {
   error?: string
 }
 
-interface UploadResponse {
-  success: boolean
-  imageUrl: string
-  message: string
-}
-
 interface BatchUploadResponse {
   success: boolean
   results: Array<{
@@ -77,10 +71,10 @@ export function useImageUpload(options: UseImageUploadOptions = {}) {
     formData.append('file', file)
 
     const url = `/upload/images${folder ? `?folder=${folder}` : ''}`
-    
     const response = await postUtil(url, formData, token, {
       headers: {
         'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`
       },
     })
 
@@ -104,6 +98,7 @@ export function useImageUpload(options: UseImageUploadOptions = {}) {
     const response = await postUtil(url, formData, token, {
       headers: {
         'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`
       },
     })
 

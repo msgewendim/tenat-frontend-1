@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Customer, CheckoutPayload } from "../../client/types.gen";
+import { Customer, CheckoutPayloadDto } from "../../client/types.gen";
 import { clientDetailsSchema } from "../../validation/client-details.validation";
 import { useGetPaymentForm } from "../useAppData";
 import { useCartStore } from "../../stores/useCartStore";
@@ -31,7 +31,7 @@ function useCheckoutFormData() {
       setClientData(data);
 
       // Create minimal checkout payload with only IDs and essential data
-      const checkoutPayload: CheckoutPayload = {
+      const checkoutPayload: CheckoutPayloadDto = {
         customer: data,
         totalPrice,
         orderItems: minimalCartItems, // Already minimal cart items with just IDs
@@ -57,23 +57,23 @@ function useCheckoutFormData() {
       console.log("Payment form response:", paymentResponse);
       
       // Check if the payment url is a valid url
-      if (!isValidUrl(paymentResponse.url)) {
+      if (!isValidUrl(paymentResponse[201].paymentLink)) {
         toast.error(t('checkout.invalidPaymentUrl'));
         setIsSubmitting(false);
         return;
       }
       
-      console.log("Opening payment URL:", paymentResponse.url);
+      console.log("Opening payment URL:", paymentResponse[201].paymentLink);
       
       // Store payment info but don't clear cart yet (in case payment fails)
       sessionStorage.setItem('pendingPayment', JSON.stringify({
-        orderId: paymentResponse.orderId,
-        url: paymentResponse.url,
+        orderId: paymentResponse[201].order?._id,
+        url: paymentResponse[201].paymentLink,
         timestamp: Date.now()
       }));
       
       // Open the payment url in a new tab
-      window.open(paymentResponse.url, '_blank');
+      window.open(paymentResponse[201].paymentLink, '_blank');
       
       // Navigate to a waiting page instead of clearing cart immediately
       navigate('/checkout/payment-pending');
